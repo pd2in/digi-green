@@ -105,10 +105,10 @@ function Home({navigation, route}) {
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity onPress={() => {navigation.navigate("PumpStatus", {"status": config.pumpStatus})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Status Pompa</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Mati</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{config.pumpStatus ? "NYALA" : "MATI"}</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
