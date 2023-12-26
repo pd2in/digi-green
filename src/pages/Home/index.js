@@ -1,11 +1,9 @@
 import React, {useCallback, useEffect} from 'react';
 import {View, Text, TouchableOpacity, Image, ScrollView} from "react-native";
-import * as Location from 'expo-location';
 import * as SplashScreen from "expo-splash-screen";
 import {useFonts} from "expo-font";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
-import {Accuracy} from "expo-location";
 import {ChevronRightIcon, DoorOutIcon, PinPointIcon} from "../../assets/svgs";
 import {Separator} from "../../components";
 
@@ -96,28 +94,28 @@ function Home({navigation, route}) {
           <View style={{marginTop: 25}}>
             <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>Pengaturan Hidroponik</Text>
             <View style={{gap: 15, marginTop: 10}}>
-              <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Minimum dan Maksimum PPM</Text>
                   <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Min : 20 , Max : 90</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Status Pompa</Text>
                   <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Mati</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Jam Hidup Pompa</Text>
                   <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>8:00 - 21:00</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Pemberian Pupuk Cair</Text>
                   <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Setiap hari Selasa, pukul 6:00</Text>
