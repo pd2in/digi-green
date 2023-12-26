@@ -32,6 +32,9 @@ function Home({navigation, route}) {
   if (!fontsLoaded) {
     return null;
   }
+
+
+
   return (
       <View onLayout={onLayoutRootView} style={{flex: 1,backgroundColor: 'white'}}>
         <StatusBar />
@@ -94,7 +97,7 @@ function Home({navigation, route}) {
           <View style={{marginTop: 25}}>
             <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>Pengaturan Hidroponik</Text>
             <View style={{gap: 15, marginTop: 10}}>
-              <TouchableOpacity style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity onPress={() => {navigation.navigate("MinMaxPPM")}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10 }}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Minimum dan Maksimum PPM</Text>
                   <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Min : 20 , Max : 90</Text>
