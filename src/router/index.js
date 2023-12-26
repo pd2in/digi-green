@@ -1,6 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home, Login, Splash } from '../pages';
-import MinMaxPPM from '../pages/MinMaxPPM';
+import { Home, Login, Splash, MinMaxPPM } from '../pages';
 import GlobalStyles from '../styles/GlobalStyles';
 
 const Stack = createStackNavigator();
