@@ -3,6 +3,7 @@ import Splash from "./Splash";
 import Home from "./Home";
 import MinMaxPPM from "./MinMaxPPM";
 import PumpStatus from "./PumpStatus";
+import PumpActiveHour from "./PumpActiveHour";
 
 export {
   Login,
@@ -10,4 +11,5 @@ export {
   Home,
   MinMaxPPM,
   PumpStatus,
+  PumpActiveHour,
 }

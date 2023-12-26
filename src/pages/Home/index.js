@@ -7,6 +7,7 @@ import {StatusBar} from "expo-status-bar";
 import {ChevronRightIcon, DoorOutIcon, PinPointIcon} from "../../assets/svgs";
 import {Separator} from "../../components";
 import config from '../../store/config';
+import getFormattedTime from '../../utils/time';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -112,10 +113,10 @@ function Home({navigation, route}) {
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity onPress={() => {navigation.navigate("PumpActiveHour", {"range" : config.pumpActiveRangeHour})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Jam Hidup Pompa</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>8:00 - 21:00</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{getFormattedTime(config.pumpActiveRangeHour.startTime)} - {getFormattedTime(config.pumpActiveRangeHour.endTime)}</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
