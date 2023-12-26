@@ -6,6 +6,7 @@ import * as Location from "expo-location";
 import * as SplashScreen from "expo-splash-screen";
 import {PrimaryButton} from "../../components";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {Accuracy} from "expo-location";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -38,6 +39,12 @@ function Login({navigation}) {
     getLocationPermission()
   }, []);
 
+  const onSubmit = () => {
+    Location.getCurrentPositionAsync({accuracy: Accuracy.High})
+        .then(r => navigation.navigate('Home', {locationData: r}))
+        .catch(() => alert('failed to get current location!'))
+  }
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -52,7 +59,7 @@ function Login({navigation}) {
         <StatusBar />
         <View style={{marginTop: insets.top, marginHorizontal: 24}}>
           <Text style={{fontFamily: 'Poppins-SemiBold'}}>Ini halaman login</Text>
-          <PrimaryButton text="LOGIN" onPress={() => navigation.navigate('Home')}/>
+          <PrimaryButton text="LOGIN" onPress={onSubmit}/>
         </View>
       </View>
   );
