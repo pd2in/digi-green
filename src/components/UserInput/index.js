@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import {TextInput, TouchableOpacity, View, Text, StyleSheet} from "react-native";
-import LogoOnly from "../LogoOnly";
-import EyePassword from "../EyePassword";
+import {EyePassword} from "../../assets/svgs";
 
-function Index({label,type,value,onChange,onPress}) {
+function Index({label,type,value,onChange}) {
 
     const [password, setPassword] = useState('');
 
