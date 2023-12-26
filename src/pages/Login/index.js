@@ -68,7 +68,7 @@ function Login({navigation}) {
           <Separator height={61}/>
           <UserInput label={"Username"} type={"Basic"}/>
           <Separator height={5}/>
-          <UserInput label={"Password"} type={"Password"}/>
+          <UserInput label={"Password"} type={"Password"} />
           <Separator height={61}/>
           <PrimaryButton text="LOGIN" onPress={onSubmit}/>
         </View>
