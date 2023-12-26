@@ -2,6 +2,7 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import ColoredInput from '../../components/ColoredInput';
 import { PrimaryButton, Separator } from '../../components';
 import { useState } from 'react';
+import GlobalStyles from '../../styles/GlobalStyles';
 
 function MinMaxPPM({ navigation, route }) {
   const PPM = route.params.PPM;
@@ -36,17 +37,18 @@ function MinMaxPPM({ navigation, route }) {
 
   return (
     <View style={styles.screenContainer}>
+      <Text style={styles.text}>Isikan nilai minimum dan maksimum PPM yang baru</Text>
+      <Separator height={16}/>
       <ColoredInput
-        label="Minimum PPM"
         keyboardType="decimal-pad"
-        placeholder="Masukkan batas minimum PPM"
+        placeholder="Minimum PPM"
         value={valuePPM.minimum.toString()}
         onChangeText={(text) => changeMinMaxPPMHandler('minimum', text)}
       />
       <ColoredInput
         label="Maksimum PPM"
         keyboardType="decimal-pad"
-        placeholder="Masukkan batas maksimum PPM"
+        placeholder="Maksimum PPM"
         value={valuePPM.maximum.toString()}
         onChangeText={(text) => changeMinMaxPPMHandler('maximum', text)}
       />
@@ -63,4 +65,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
   },
+  text: {
+    fontFamily: 'Poppins-SemiBold',
+    color: 'gray',
+  }
 });
