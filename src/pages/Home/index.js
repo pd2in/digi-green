@@ -1,12 +1,13 @@
 import React, {useCallback, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Image} from "react-native";
+import {View, Text, TouchableOpacity, Image, ScrollView} from "react-native";
 import * as Location from 'expo-location';
 import * as SplashScreen from "expo-splash-screen";
 import {useFonts} from "expo-font";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {Accuracy} from "expo-location";
-import {DoorOutIcon, PinPointIcon} from "../../assets/svgs";
+import {ChevronRightIcon, DoorOutIcon, PinPointIcon} from "../../assets/svgs";
+import {Separator} from "../../components";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -34,9 +35,9 @@ function Home({navigation, route}) {
     return null;
   }
   return (
-      <View onLayout={onLayoutRootView}>
+      <View onLayout={onLayoutRootView} style={{flex: 1,backgroundColor: 'white'}}>
         <StatusBar />
-        <View style={{marginTop: insets.top ,marginHorizontal: 24}}>
+        <ScrollView style={{marginTop: insets.top, paddingHorizontal: 24, paddingBottom: 30}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <View style={{flexDirection: 'row'}}>
               <View style={{justifyContent: 'center', marginRight: 10}}>
@@ -50,13 +51,13 @@ function Home({navigation, route}) {
                 <Text style={{fontFamily: 'Poppins-Medium', fontSize: 13}}>Selasa, 26 Desember 2023</Text>
               </View>
             </View>
-            <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center', padding: 10}}>
+            <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center', padding: 10, backgroundColor: 'white'}}>
               <DoorOutIcon />
             </TouchableOpacity>
           </View>
           <View style={{backgroundColor: '#08B117', borderRadius: 16, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20}}>
             <View style={{paddingLeft: 20, paddingVertical: 10, width: '50%'}}>
-              <Text style={{fontFamily: 'Poppins-Bold', fontSize: 16, color: 'white'}}>Cuaca hari ini</Text>
+              <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18, color: 'white'}}>Cuaca hari ini</Text>
               <Text style={{fontFamily: 'Poppins-Bold', fontSize: 48, color: 'white'}}>34°C</Text>
               <View style={{flexDirection: 'row', gap: 5, alignItems: 'center'}}>
                 <PinPointIcon/>
@@ -67,7 +68,66 @@ function Home({navigation, route}) {
               <Image style={{width: 150, height: 100}} source={{uri: 'https://openweathermap.org/img/wn/02d@2x.png'}}/>
             </View>
           </View>
-        </View>
+          <View style={{marginTop: 25}}>
+            <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>Informasi Umum</Text>
+            <View style={{flexDirection: 'row', gap: 15, justifyContent: 'center', marginTop: 10}}>
+              <View style={{width: 84, height: 84, alignContent: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: 16, borderWidth: 1, borderColor: '#DEDEDE'}}>
+                <Text style={{textAlign: 'center'}}>Temperatur</Text>
+              </View>
+              <View style={{width: 84, height: 84, alignContent: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: 16, borderWidth: 1, borderColor: '#DEDEDE'}}>
+                <Text style={{textAlign: 'center'}}>Humidity</Text>
+              </View>
+            </View>
+          </View>
+          <View style={{marginTop: 25}}>
+            <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>Sistem Kontrol</Text>
+            <View style={{flexDirection: 'row', gap: 15, justifyContent: 'center', marginTop: 10}}>
+              <View style={{width: 84, height: 84, alignContent: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: 16, borderWidth: 1, borderColor: '#DEDEDE'}}>
+                <Text style={{textAlign: 'center'}}>Temperatur</Text>
+              </View>
+              <View style={{width: 84, height: 84, alignContent: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: 16, borderWidth: 1, borderColor: '#DEDEDE'}}>
+                <Text style={{textAlign: 'center'}}>Humidity</Text>
+              </View>
+              <View style={{width: 84, height: 84, alignContent: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: 16, borderWidth: 1, borderColor: '#DEDEDE'}}>
+                <Text style={{textAlign: 'center'}}>PPH</Text>
+              </View>
+            </View>
+          </View>
+          <View style={{marginTop: 25}}>
+            <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>Pengaturan Hidroponik</Text>
+            <View style={{gap: 15, marginTop: 10}}>
+              <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+                <View>
+                  <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Minimum dan Maksimum PPM</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Min : 20 , Max : 90</Text>
+                </View>
+                <ChevronRightIcon />
+              </TouchableOpacity>
+              <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+                <View>
+                  <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Status Pompa</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Mati</Text>
+                </View>
+                <ChevronRightIcon />
+              </TouchableOpacity>
+              <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+                <View>
+                  <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Jam Hidup Pompa</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>8:00 - 21:00</Text>
+                </View>
+                <ChevronRightIcon />
+              </TouchableOpacity>
+              <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+                <View>
+                  <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Pemberian Pupuk Cair</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Setiap hari Selasa, pukul 6:00</Text>
+                </View>
+                <ChevronRightIcon />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <Separator height={30}/>
+        </ScrollView>
       </View>
   );
 }
