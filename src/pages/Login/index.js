@@ -4,9 +4,10 @@ import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
 import * as Location from "expo-location";
 import * as SplashScreen from "expo-splash-screen";
-import {LogoOnly, PrimaryButton, Separator, UserInput} from "../../components";
+import {PrimaryButton, Separator, UserInput} from "../../components";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Accuracy} from "expo-location";
+import {LogoOnly} from "../../assets/svgs";
 
 SplashScreen.preventAutoHideAsync();
 

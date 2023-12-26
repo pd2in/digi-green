@@ -38,7 +38,7 @@ function Home({navigation, route}) {
 
 
   return (
-      <View onLayout={onLayoutRootView} style={{flex: 1,backgroundColor: 'white'}}>
+      <View onLayout={onLayoutRootView} style={{flex: 1,backgroundColor: 'white', paddingTop: 20,}}>
         <StatusBar />
         <ScrollView style={{marginTop: insets.top, paddingHorizontal: 24, paddingBottom: 30}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -67,7 +67,7 @@ function Home({navigation, route}) {
                 <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 15, color: 'white'}}>Buduran</Text>
               </View>
             </View>
-            <View style={{justifyContent: 'center', borderRadius: 16, width: '50%', backgroundColor: '#1cc62b'}}>
+            <View style={{justifyContent: 'center', borderRadius: 16, width: '45  %', backgroundColor: '#C7F9CC', alignItems: "center"}}>
               <Image style={{width: 150, height: 100}} source={{uri: 'https://openweathermap.org/img/wn/02d@2x.png'}}/>
             </View>
           </View>
@@ -92,7 +92,7 @@ function Home({navigation, route}) {
                 <Text style={{textAlign: 'center'}}>Humidity</Text>
               </View>
               <View style={{width: 84, height: 84, alignContent: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: 16, borderWidth: 1, borderColor: '#DEDEDE'}}>
-                <Text style={{textAlign: 'center'}}>PPH</Text>
+                <Text style={{textAlign: 'center'}}>PPM</Text>
               </View>
             </View>
           </View>
