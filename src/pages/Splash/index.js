@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text} from "react-native";
 import {StatusBar} from "expo-status-bar";
 
-function Login() {
+function Splash() {
   return (
       <View>
         <StatusBar />
@@ -11,4 +11,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Splash;
