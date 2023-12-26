@@ -8,6 +8,14 @@ function Index({label,type,value,onChange}) {
 
     const [showPassword, setShowPassword] = useState(false);
 
+    const [focusPassword, setFocusPassword] = useState(false);
+
+    const [focusUsername, setFocusUsername] = useState(false);
+
+    const customStyleUsername = focusUsername ? styles.textInputBasicSecondary : styles.textInputBasic ;
+
+    const customStylePassword = focusPassword ? styles.secondary : styles.container ;
+
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -24,14 +32,20 @@ function Index({label,type,value,onChange}) {
                 <TextInput
                     placeholder="Enter Username"
                     placeholderTextColor="#aaa"
-                    style={styles.textInputBasic}
+                    style={customStyleUsername}
                     onChangeText={onChange}
                     value={value}
+                    onFocus={()=>{
+                        setFocusUsername(true)
+                    }}
+                    onEndEditing={()=>{
+                        setFocusUsername(false)
+                    }}
                 />
             }
 
             {type === 'Password' &&
-                <View style={styles.container}>
+                <View style={customStylePassword}>
                     <TextInput
                         secureTextEntry={!showPassword}
                         value={password}
@@ -39,6 +53,12 @@ function Index({label,type,value,onChange}) {
                         style={styles.input}
                         placeholder="Enter Password"
                         placeholderTextColor="#aaa"
+                        onFocus={()=>{
+                            setFocusPassword(true);
+                        }}
+                        onEndEditing={()=>{
+                            setFocusPassword(false)
+                        }}
                     />
                     <EyePassword
                         type={showPassword  ? 'eye-off' : 'eye'}
@@ -91,5 +111,29 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'green',
         marginBottom: 20,
+    },
+    secondary: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f3f3f3',
+        borderRadius: 8,
+        paddingHorizontal: 14,
+        borderWidth:2,
+        borderColor: "#95D5B2",
+    },
+    textInputBasicSecondary: {
+        marginTop: 1,
+        fontFamily: 'Poppins-Medium',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f3f3f3',
+        borderRadius: 8,
+        paddingHorizontal: 14,
+        height: 49,
+        fontSize: 16,
+        borderWidth:2,
+        borderColor: "#95D5B2",
     },
 })
