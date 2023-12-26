@@ -1,6 +1,5 @@
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import ColoredInput from '../../components/ColoredInput';
-import { PrimaryButton, Separator } from '../../components';
+import { PrimaryButton, Separator, ColoredInput } from '../../components';
 import { useState } from 'react';
 import GlobalStyles from '../../styles/GlobalStyles';
 
