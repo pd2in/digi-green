@@ -6,7 +6,7 @@ import {useFonts} from "expo-font";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {Accuracy} from "expo-location";
-import {DoorOutIcon} from "../../assets/svgs";
+import {DoorOutIcon, PinPointIcon} from "../../assets/svgs";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -53,6 +53,19 @@ function Home({navigation, route}) {
             <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center', padding: 10}}>
               <DoorOutIcon />
             </TouchableOpacity>
+          </View>
+          <View style={{backgroundColor: '#08B117', borderRadius: 16, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20}}>
+            <View style={{paddingLeft: 20, paddingVertical: 10, width: '50%'}}>
+              <Text style={{fontFamily: 'Poppins-Bold', fontSize: 16, color: 'white'}}>Cuaca hari ini</Text>
+              <Text style={{fontFamily: 'Poppins-Bold', fontSize: 48, color: 'white'}}>34°C</Text>
+              <View style={{flexDirection: 'row', gap: 5, alignItems: 'center'}}>
+                <PinPointIcon/>
+                <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 15, color: 'white'}}>Buduran</Text>
+              </View>
+            </View>
+            <View style={{justifyContent: 'center', borderRadius: 16, width: '50%', backgroundColor: '#1cc62b'}}>
+              <Image style={{width: 150, height: 100}} source={{uri: 'https://openweathermap.org/img/wn/02d@2x.png'}}/>
+            </View>
           </View>
         </View>
       </View>
