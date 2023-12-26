@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home, Login, Splash } from '../pages';
 import MinMaxPPM from '../pages/MinMaxPPM';
+import GlobalStyles from '../styles/GlobalStyles';
 
 const Stack = createStackNavigator();
 
@@ -25,7 +26,12 @@ const Router = () => {
       <Stack.Screen
         name="MinMaxPPM"
         component={MinMaxPPM}
-        options={{ headerShown: true, headerTitle: 'Minimum dan Maximum PPM' }}
+        options={{
+          headerShown: true,
+          headerTitle: 'Minimum dan Maximum PPM',
+          headerTintColor: GlobalStyles.colors.onPrimary,
+          headerStyle: { backgroundColor: GlobalStyles.colors.primary },
+        }}
       />
     </Stack.Navigator>
   );
