@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Text} from "react-native";
+import {View, Text, StyleSheet} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
 import * as Location from "expo-location";
 import * as SplashScreen from "expo-splash-screen";
-import {PrimaryButton} from "../../components";
+import {LogoOnly, PrimaryButton, Separator, UserInput} from "../../components";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Accuracy} from "expo-location";
 
@@ -55,10 +55,21 @@ function Login({navigation}) {
     return null;
   }
   return (
-      <View onLayout={onLayoutRootView}>
+      <View style={styles.parent} onLayout={onLayoutRootView}>
         <StatusBar />
+        <View style={styles.logo}>
+          <LogoOnly/>
+        </View>
         <View style={{marginTop: insets.top, marginHorizontal: 24}}>
-          <Text style={{fontFamily: 'Poppins-SemiBold'}}>Ini halaman login</Text>
+          <View>
+            <Text style={{fontFamily: "Poppins-Bold", fontSize: 20, textAlign: "center"}}>Hi, Greener</Text>
+            <Text style={{fontFamily: "Poppins-Medium", fontSize: 15, textAlign: "center"}}>Yuk masuk ke aplikasi dan segera pantau hidroponikmu</Text>
+          </View>
+          <Separator height={61}/>
+          <UserInput label={"Username"} type={"Basic"}/>
+          <Separator height={5}/>
+          <UserInput label={"Password"} type={"Password"}/>
+          <Separator height={61}/>
           <PrimaryButton text="LOGIN" onPress={onSubmit}/>
         </View>
       </View>
@@ -66,3 +77,14 @@ function Login({navigation}) {
 }
 
 export default Login;
+
+const styles = StyleSheet.create({
+  parent: {
+    backgroundColor: '#ffffff',
+    paddingTop: 96,
+  },
+  logo: {
+    alignItems: "center",
+  },
+
+})

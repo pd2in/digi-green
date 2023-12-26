@@ -19,6 +19,15 @@ function PrimaryButton({text, onPress}) {
 export default PrimaryButton;
 
 const styles = new StyleSheet.create({
-  wrapper: {backgroundColor: '#08B117', borderRadius: 16},
-  text: {color: 'white', textAlign: 'center', paddingVertical: 12.5, fontFamily: 'Poppins-Bold', fontSize: 16}
+  wrapper: {
+      backgroundColor: '#08B117',
+      borderRadius: 16
+  },
+  text: {
+      color: 'white',
+      textAlign: 'center',
+      paddingVertical: 12.5,
+      fontFamily: 'Poppins-Bold',
+      fontSize: 16
+  },
 })
