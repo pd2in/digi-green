@@ -1,12 +1,24 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home, Login, Splash, MinMaxPPM, PumpStatus } from '../pages';
+import {
+  Home,
+  Login,
+  Splash,
+  MinMaxPPM,
+  PumpStatus,
+  PumpActiveHour,
+} from '../pages';
 import GlobalStyles from '../styles/GlobalStyles';
 
 const Stack = createStackNavigator();
 
 const Router = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTintColor: GlobalStyles.colors.onPrimary,
+        headerStyle: { backgroundColor: GlobalStyles.colors.primary },
+      }}
+    >
       <Stack.Screen
         name="Login"
         component={Login}
@@ -28,8 +40,6 @@ const Router = () => {
         options={{
           headerShown: true,
           headerTitle: 'Minimum dan Maximum PPM',
-          headerTintColor: GlobalStyles.colors.onPrimary,
-          headerStyle: { backgroundColor: GlobalStyles.colors.primary },
         }}
       />
       <Stack.Screen
@@ -38,8 +48,14 @@ const Router = () => {
         options={{
           headerShown: true,
           headerTitle: 'Status Pompa',
-          headerTintColor: GlobalStyles.colors.onPrimary,
-          headerStyle: { backgroundColor: GlobalStyles.colors.primary },
+        }}
+      />
+      <Stack.Screen
+        name="PumpActiveHour"
+        component={PumpActiveHour}
+        options={{
+          headerShown: true,
+          headerTitle: 'Jam Hidup Pompa',
         }}
       />
     </Stack.Navigator>
