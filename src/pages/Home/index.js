@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import {View, Text, TouchableOpacity, Image, ScrollView} from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import {useFonts} from "expo-font";
@@ -6,12 +6,13 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {ChevronRightIcon, DoorOutIcon, PinPointIcon} from "../../assets/svgs";
 import {Separator} from "../../components";
-import config from '../../store/config';
 import getFormattedTime from '../../utils/time';
+import { HydroponicConfigContext } from '../../config/Context';
 
 SplashScreen.preventAutoHideAsync();
 
 function Home({navigation, route}) {
+  const hydroponicConfigContext = useContext(HydroponicConfigContext);
   const {locationData} = route.params
   const insets = useSafeAreaInsets()
   const [fontsLoaded] = useFonts({
@@ -99,24 +100,24 @@ function Home({navigation, route}) {
           <View style={{marginTop: 25}}>
             <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>Pengaturan Hidroponik</Text>
             <View style={{gap: 15, marginTop: 10}}>
-              <TouchableOpacity onPress={() => {navigation.navigate("MinMaxPPM", {"PPM": config.PPM})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10 }}>
+              <TouchableOpacity onPress={() => {navigation.navigate("MinMaxPPM", {"PPM":hydroponicConfigContext.config.PPM})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10 }}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Minimum dan Maksimum PPM</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Min : {config.PPM.minimum.toString()} , Max : {config.PPM.maximum.toString()}</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Min : {hydroponicConfigContext.config.PPM.minimum} , Max : {hydroponicConfigContext.config.PPM.maximum}</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => {navigation.navigate("PumpStatus", {"status": config.pumpStatus})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity onPress={() => {navigation.navigate("PumpStatus", {"status": hydroponicConfigContext.config.pumpStatus})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Status Pompa</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{config.pumpStatus ? "NYALA" : "MATI"}</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{hydroponicConfigContext.config.pumpStatus ? "NYALA" : "MATI"}</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => {navigation.navigate("PumpActiveHour", {"range" : config.pumpActiveRangeHour})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity onPress={() => {navigation.navigate("PumpActiveHour", {"range" : hydroponicConfigContext.config.pumpActiveRangeHour})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Jam Hidup Pompa</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{getFormattedTime(config.pumpActiveRangeHour.startTime)} - {getFormattedTime(config.pumpActiveRangeHour.endTime)}</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{getFormattedTime(hydroponicConfigContext.config.pumpActiveRangeHour.startTime)} - {getFormattedTime(hydroponicConfigContext.config.pumpActiveRangeHour.endTime)}</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>

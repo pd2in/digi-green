@@ -1,9 +1,10 @@
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { PrimaryButton, Separator, ColoredInput } from '../../components';
-import { useState } from 'react';
-import GlobalStyles from '../../styles/GlobalStyles';
+import { useContext, useState } from 'react';
+import { HydroponicConfigContext } from '../../config/Context';
 
 function MinMaxPPM({ navigation, route }) {
+  const hydroponicConfigContext = useContext(HydroponicConfigContext);
   const PPM = route.params.PPM;
   const [valuePPM, setValuePPM] = useState({
     minimum: PPM.minimum,
@@ -22,22 +23,31 @@ function MinMaxPPM({ navigation, route }) {
       valuePPM.minimum > 0 &&
       valuePPM.minimum <= 100 &&
       valuePPM.maximum > 0 &&
-      valuePPM.maximum <= 100;
+      valuePPM.maximum <= 100 &&
+      valuePPM.minimum < valuePPM.maximum;
 
     if (!isPPMValid) {
       Alert.alert(
         'Nilai PPM Tidak Valid',
-        'Harap masukkan nilai PPM antara 1 dan 100'
+        'Harap masukkan nilai PPM antara 1 dan 100 dan minimum PPM harus lebih kecil dari maksimum PPM.'
       );
       return;
     }
+
+    hydroponicConfigContext.setConfig('PPM', {
+      minimum: parseInt(valuePPM.minimum),
+      maximum: parseInt(valuePPM.maximum),
+    });
+
     navigation.goBack();
   }
 
   return (
     <View style={styles.screenContainer}>
-      <Text style={styles.text}>Isikan nilai minimum dan maksimum PPM yang baru</Text>
-      <Separator height={16}/>
+      <Text style={styles.text}>
+        Isikan nilai minimum dan maksimum PPM yang baru
+      </Text>
+      <Separator height={16} />
       <ColoredInput
         keyboardType="decimal-pad"
         placeholder="Minimum PPM"
@@ -67,5 +77,5 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Poppins-SemiBold',
     color: 'gray',
-  }
+  },
 });
