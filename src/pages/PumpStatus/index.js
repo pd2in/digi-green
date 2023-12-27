@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { StyleSheet, Switch, Text, View } from 'react-native';
 import { PrimaryButton, Separator } from '../../components';
 import GlobalStyles from '../../styles/GlobalStyles';
+import { HydroponicConfigContext } from '../../config/Context';
 
 function PumpStatus({ navigation, route }) {
+  const hydroponicConfigContext = useContext(HydroponicConfigContext);
   const status = route.params.status;
 
   const [pumpStatus, setPumpStatus] = useState(status);
@@ -13,7 +15,7 @@ function PumpStatus({ navigation, route }) {
   }
 
   function submitPumpStatusHandler() {
-    console.log(pumpStatus);
+    hydroponicConfigContext.setConfig('pumpStatus', pumpStatus);
     navigation.goBack();
   }
 

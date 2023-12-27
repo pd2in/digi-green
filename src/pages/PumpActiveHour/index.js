@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Alert,
-  Button,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import getFormattedTime from '../../utils/time';
-import GlobalStyles from '../../styles/GlobalStyles';
 import { PrimaryButton, Separator, TimePickContainer } from '../../components';
+import { HydroponicConfigContext } from '../../config/Context';
 
 function PumpActiveHour({ navigation, route }) {
+  const hydroponicConfigContext = useContext(HydroponicConfigContext);
   const pumpActiveRangeHour = route.params.range;
   const [rangeHour, setRangeHour] = useState({
     startTime: pumpActiveRangeHour.startTime,
@@ -61,6 +60,8 @@ function PumpActiveHour({ navigation, route }) {
       );
       return;
     }
+
+    hydroponicConfigContext.setConfig('pumpActiveRangeHour', updatedRangeHour);
 
     navigation.goBack();
   }
