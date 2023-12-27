@@ -7,6 +7,7 @@ import {StatusBar} from "expo-status-bar";
 import {ChevronRightIcon, DoorOutIcon, PinPointIcon} from "../../assets/svgs";
 import {Separator} from "../../components";
 import getFormattedTime from '../../utils/time';
+import getFormattedDate from '../../utils/date'
 import { HydroponicConfigContext } from '../../config/Context';
 
 SplashScreen.preventAutoHideAsync();
@@ -115,10 +116,10 @@ function Home({navigation, route}) {
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity onPress={() => {navigation.navigate("FertilizationSchedule", {"schedule" : hydroponicConfigContext.config.fertilizationSchedule})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Pemberian Pupuk Cair</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Setiap hari Selasa, pukul 6:00</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{getFormattedDate(hydroponicConfigContext.config.fertilizationSchedule.startDate)}, pukul 6:00</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>

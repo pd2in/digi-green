@@ -16,6 +16,11 @@ function HydroponicConfigContextProvider({ children }) {
       startTime: { hour: 0, minute: 0 },
       endTime: { hour: 0, minute: 0 },
     },
+    fertilizationSchedule: {
+      numberOfDays: 0,
+      startDate: { date: 1, month:1, year: 2000},
+      fertilizationTime: {hour: 0, minute: 0},
+    }
   });
 
   function setConfig(key, value) {
