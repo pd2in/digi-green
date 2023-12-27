@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import {View, Text, TouchableOpacity, Image, ScrollView} from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import {useFonts} from "expo-font";
@@ -6,13 +6,14 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {ChevronRightIcon, DoorOutIcon, PinPointIcon} from "../../assets/svgs";
 import {Separator} from "../../components";
-import config from '../../store/config';
 import getFormattedTime from '../../utils/time';
+import { HydroponicConfigContext } from '../../config/Context';
 
 SplashScreen.preventAutoHideAsync();
 
 function Home({navigation, route}) {
-  const {locationData} = route.params
+  const {weatherData} = route.params
+  const hydroponicConfigContext = useContext(HydroponicConfigContext);
   const insets = useSafeAreaInsets()
   const [fontsLoaded] = useFonts({
     'Poppins-Regular': require('../../assets/font/Poppins-Regular.ttf'),
@@ -20,10 +21,6 @@ function Home({navigation, route}) {
     'Poppins-SemiBold': require('../../assets/font/Poppins-SemiBold.ttf'),
     'Poppins-Bold': require('../../assets/font/Poppins-Bold.ttf'),
   });
-
-  useEffect(() => {
-    console.log(locationData)
-  }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -34,21 +31,7 @@ function Home({navigation, route}) {
   if (!fontsLoaded) {
     return null;
   }
-
-  const { date, month, year } = config.fertilizationSchedule.startDate;
-
-// Creating a Date object
-  const startDateObject = new Date(`${month} ${date}, ${year}`);
-
-// Formatting the date (e.g., "December 16, 2023")
-  const formattedStartDate = startDateObject.toLocaleDateString("id-ID", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-
-  console.log(formattedStartDate);
-
+  
   return (
       <View onLayout={onLayoutRootView} style={{flex: 1,backgroundColor: 'white', paddingTop: 20,}}>
         <StatusBar />
@@ -73,14 +56,14 @@ function Home({navigation, route}) {
           <View style={{backgroundColor: '#08B117', borderRadius: 16, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20}}>
             <View style={{paddingLeft: 20, paddingVertical: 10, width: '50%'}}>
               <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18, color: 'white'}}>Cuaca hari ini</Text>
-              <Text style={{fontFamily: 'Poppins-Bold', fontSize: 48, color: 'white'}}>34°C</Text>
+              <Text style={{fontFamily: 'Poppins-Bold', fontSize: 48, color: 'white'}}>{Math.round(weatherData.main.temp)}°C</Text>
               <View style={{flexDirection: 'row', gap: 5, alignItems: 'center'}}>
                 <PinPointIcon/>
-                <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 15, color: 'white'}}>Buduran</Text>
+                <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 15, color: 'white'}}>{weatherData.name}</Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', borderRadius: 16, width: '45  %', backgroundColor: '#C7F9CC', alignItems: "center"}}>
-              <Image style={{width: 150, height: 100}} source={{uri: 'https://openweathermap.org/img/wn/02d@2x.png'}}/>
+              <Image style={{width: 150, height: 100}} source={{uri: `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}}/>
             </View>
           </View>
           <View style={{marginTop: 25}}>
@@ -111,31 +94,31 @@ function Home({navigation, route}) {
           <View style={{marginTop: 25}}>
             <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>Pengaturan Hidroponik</Text>
             <View style={{gap: 15, marginTop: 10}}>
-              <TouchableOpacity onPress={() => {navigation.navigate("MinMaxPPM", {"PPM": config.PPM})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10 }}>
+              <TouchableOpacity onPress={() => {navigation.navigate("MinMaxPPM", {"PPM":hydroponicConfigContext.config.PPM})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10 }}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Minimum dan Maksimum PPM</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Min : {config.PPM.minimum.toString()} , Max : {config.PPM.maximum.toString()}</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Min : {hydroponicConfigContext.config.PPM.minimum} , Max : {hydroponicConfigContext.config.PPM.maximum}</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => {navigation.navigate("PumpStatus", {"status": config.pumpStatus})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity onPress={() => {navigation.navigate("PumpStatus", {"status": hydroponicConfigContext.config.pumpStatus})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Status Pompa</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{config.pumpStatus ? "NYALA" : "MATI"}</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{hydroponicConfigContext.config.pumpStatus ? "NYALA" : "MATI"}</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => {navigation.navigate("PumpActiveHour", {"range" : config.pumpActiveRangeHour})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity onPress={() => {navigation.navigate("PumpActiveHour", {"range" : hydroponicConfigContext.config.pumpActiveRangeHour})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Jam Hidup Pompa</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{getFormattedTime(config.pumpActiveRangeHour.startTime)} - {getFormattedTime(config.pumpActiveRangeHour.endTime)}</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{getFormattedTime(hydroponicConfigContext.config.pumpActiveRangeHour.startTime)} - {getFormattedTime(hydroponicConfigContext.config.pumpActiveRangeHour.endTime)}</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>{navigation.navigate("FertilizationSchedule", {"schedule" : config.fertilizationSchedule})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Pemberian Pupuk Cair</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{formattedStartDate}, pukul 6:00</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Setiap hari Selasa, pukul 6:00</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>

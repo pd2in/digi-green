@@ -4,10 +4,12 @@ import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
 import * as Location from "expo-location";
 import * as SplashScreen from "expo-splash-screen";
-import {PrimaryButton, Separator, UserInput} from "../../components";
+import {Loading, PrimaryButton, Separator, UserInput} from "../../components";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Accuracy} from "expo-location";
 import {LogoOnly} from "../../assets/svgs";
+import axios from "axios";
+import {WEATHER_API} from "../../config/OpenWeather";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,6 +23,7 @@ function Login({navigation}) {
   });
   const [status, requestPermission] = Location.useForegroundPermissions()
   const [locationGranted, setLocationGranted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const getLocationPermission = () => {
     requestPermission()
@@ -40,10 +43,26 @@ function Login({navigation}) {
     getLocationPermission()
   }, []);
 
+  const getWeatherAPI = ({lat, lon}) => {
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${WEATHER_API.key}&units=metric`)
+        .then(r => {
+          navigation.navigate('Home', {weatherData: r.data})
+          setIsLoading(false)
+        })
+        .catch(e => {
+          alert(e.toString())
+          setIsLoading(false)
+        })
+  }
+
   const onSubmit = () => {
+    setIsLoading(true)
     Location.getCurrentPositionAsync({accuracy: Accuracy.High})
-        .then(r => navigation.navigate('Home', {locationData: r}))
-        .catch(() => alert('failed to get current location!'))
+        .then(r => getWeatherAPI({lat: r.coords.latitude, lon: r.coords.longitude}))
+        .catch(() => {
+          alert('failed to get current location!')
+          setIsLoading(false)
+        })
   }
 
   const onLayoutRootView = useCallback(async () => {
@@ -55,25 +74,30 @@ function Login({navigation}) {
   if (!fontsLoaded) {
     return null;
   }
+
   return (
-      <View style={styles.parent} onLayout={onLayoutRootView}>
-        <StatusBar />
-        <View style={styles.logo}>
-          <LogoOnly/>
-        </View>
-        <View style={{marginTop: insets.top, marginHorizontal: 24}}>
-          <View>
-            <Text style={{fontFamily: "Poppins-Bold", fontSize: 20, textAlign: "center"}}>Hi, Greener</Text>
-            <Text style={{fontFamily: "Poppins-Medium", fontSize: 15, textAlign: "center"}}>Yuk masuk ke aplikasi dan segera pantau hidroponikmu</Text>
+      <>
+        <View style={styles.parent} onLayout={onLayoutRootView}>
+          <StatusBar />
+          <View style={styles.logo}>
+            <LogoOnly/>
           </View>
-          <Separator height={61}/>
-          <UserInput label={"Username"} type={"Basic"}/>
-          <Separator height={5}/>
-          <UserInput label={"Password"} type={"Password"} />
-          <Separator height={61}/>
-          <PrimaryButton text="LOGIN" onPress={onSubmit}/>
+          <View style={{marginTop: insets.top, marginHorizontal: 24}}>
+            <View>
+              <Text style={{fontFamily: "Poppins-Bold", fontSize: 20, textAlign: "center"}}>Hi, Greener</Text>
+              <Text style={{fontFamily: "Poppins-Medium", fontSize: 15, textAlign: "center"}}>Yuk masuk ke aplikasi dan segera pantau hidroponikmu</Text>
+            </View>
+            <Separator height={61}/>
+            <UserInput label={"Username"} type={"Basic"}/>
+            <Separator height={5}/>
+            <UserInput label={"Password"} type={"Password"} />
+            <Separator height={61}/>
+            <PrimaryButton text="LOGIN" onPress={onSubmit}/>
+          </View>
         </View>
-      </View>
+        {isLoading && <Loading />}
+      </>
+
   );
 }
 
@@ -83,6 +107,7 @@ const styles = StyleSheet.create({
   parent: {
     backgroundColor: '#ffffff',
     paddingTop: 96,
+    flex: 1
   },
   logo: {
     alignItems: "center",
