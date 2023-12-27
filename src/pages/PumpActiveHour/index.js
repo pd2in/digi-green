@@ -77,6 +77,7 @@ function PumpActiveHour({ navigation, route }) {
           showDatePicker();
         }}
         value={getFormattedTime(rangeHour.startTime)}
+        text={"Pilih Jam"}
       />
       <Separator height={16} />
       <TimePickContainer
@@ -86,6 +87,7 @@ function PumpActiveHour({ navigation, route }) {
           showDatePicker();
         }}
         value={getFormattedTime(rangeHour.endTime)}
+        text={"Pilih Jam"}
       />
       <DateTimePickerModal
         isVisible={isDatePickerVisible}

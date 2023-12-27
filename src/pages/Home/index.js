@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Image, ScrollView} from "react-native";
+import {View, Text, TouchableOpacity, Image, ScrollView, StyleSheet} from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import {useFonts} from "expo-font";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -32,6 +32,8 @@ function Home({navigation, route}) {
   if (!fontsLoaded) {
     return null;
   }
+
+  const customStyleStatus = hydroponicConfigContext.config.pumpStatus ? styles.standartStyle : styles.pumpNotActive;
   
   return (
       <View onLayout={onLayoutRootView} style={{flex: 1,backgroundColor: 'white', paddingTop: 20,}}>
@@ -76,6 +78,9 @@ function Home({navigation, route}) {
               <View style={{width: 84, height: 84, alignContent: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: 16, borderWidth: 1, borderColor: '#DEDEDE'}}>
                 <Text style={{textAlign: 'center'}}>Humidity</Text>
               </View>
+              <View style={{width: 84, height: 84, alignContent: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: 16, borderWidth: 1, borderColor: '#DEDEDE'}}>
+                <Text style={{textAlign: 'center'}}>Fertilization Capacity</Text>
+              </View>
             </View>
           </View>
           <View style={{marginTop: 25}}>
@@ -105,7 +110,7 @@ function Home({navigation, route}) {
               <TouchableOpacity onPress={() => {navigation.navigate("PumpStatus", {"status": hydroponicConfigContext.config.pumpStatus})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Status Pompa</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{hydroponicConfigContext.config.pumpStatus ? "NYALA" : "MATI"}</Text>
+                  <Text style={customStyleStatus}>{hydroponicConfigContext.config.pumpStatus ? "NYALA" : "MATI"}</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
@@ -132,3 +137,16 @@ function Home({navigation, route}) {
 }
 
 export default Home;
+
+const styles = StyleSheet.create({
+  pumpNotActive: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 14,
+    color: '#E80101',
+  },
+  standartStyle: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 14,
+    color: '#1cc62b',
+  }
+})
