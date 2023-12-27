@@ -12,8 +12,8 @@ import { HydroponicConfigContext } from '../../config/Context';
 SplashScreen.preventAutoHideAsync();
 
 function Home({navigation, route}) {
+  const {weatherData} = route.params
   const hydroponicConfigContext = useContext(HydroponicConfigContext);
-  const {locationData} = route.params
   const insets = useSafeAreaInsets()
   const [fontsLoaded] = useFonts({
     'Poppins-Regular': require('../../assets/font/Poppins-Regular.ttf'),
@@ -21,10 +21,6 @@ function Home({navigation, route}) {
     'Poppins-SemiBold': require('../../assets/font/Poppins-SemiBold.ttf'),
     'Poppins-Bold': require('../../assets/font/Poppins-Bold.ttf'),
   });
-
-  useEffect(() => {
-    console.log(locationData)
-  }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -35,9 +31,7 @@ function Home({navigation, route}) {
   if (!fontsLoaded) {
     return null;
   }
-
-
-
+  
   return (
       <View onLayout={onLayoutRootView} style={{flex: 1,backgroundColor: 'white', paddingTop: 20,}}>
         <StatusBar />
@@ -62,14 +56,14 @@ function Home({navigation, route}) {
           <View style={{backgroundColor: '#08B117', borderRadius: 16, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20}}>
             <View style={{paddingLeft: 20, paddingVertical: 10, width: '50%'}}>
               <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18, color: 'white'}}>Cuaca hari ini</Text>
-              <Text style={{fontFamily: 'Poppins-Bold', fontSize: 48, color: 'white'}}>34°C</Text>
+              <Text style={{fontFamily: 'Poppins-Bold', fontSize: 48, color: 'white'}}>{Math.round(weatherData.main.temp)}°C</Text>
               <View style={{flexDirection: 'row', gap: 5, alignItems: 'center'}}>
                 <PinPointIcon/>
-                <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 15, color: 'white'}}>Buduran</Text>
+                <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 15, color: 'white'}}>{weatherData.name}</Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', borderRadius: 16, width: '45  %', backgroundColor: '#C7F9CC', alignItems: "center"}}>
-              <Image style={{width: 150, height: 100}} source={{uri: 'https://openweathermap.org/img/wn/02d@2x.png'}}/>
+              <Image style={{width: 150, height: 100}} source={{uri: `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}}/>
             </View>
           </View>
           <View style={{marginTop: 25}}>
