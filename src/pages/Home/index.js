@@ -9,6 +9,7 @@ import {Separator} from "../../components";
 import getFormattedTime from '../../utils/time';
 import getFormattedDate from '../../utils/date'
 import { HydroponicConfigContext } from '../../config/Context';
+import { GeneralInfoComponent } from '../../components/InformationCard/index';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -85,17 +86,7 @@ function Home({navigation, route}) {
           </View>
           <View style={{marginTop: 25}}>
             <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>Sistem Kontrol</Text>
-            <View style={{flexDirection: 'row', gap: 15, justifyContent: 'center', marginTop: 10}}>
-              <View style={{width: 84, height: 84, alignContent: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: 16, borderWidth: 1, borderColor: '#DEDEDE'}}>
-                <Text style={{textAlign: 'center'}}>Temperatur</Text>
-              </View>
-              <View style={{width: 84, height: 84, alignContent: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: 16, borderWidth: 1, borderColor: '#DEDEDE'}}>
-                <Text style={{textAlign: 'center'}}>Humidity</Text>
-              </View>
-              <View style={{width: 84, height: 84, alignContent: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: 16, borderWidth: 1, borderColor: '#DEDEDE'}}>
-                <Text style={{textAlign: 'center'}}>PPM</Text>
-              </View>
-            </View>
+            <GeneralInfoComponent/>
           </View>
           <View style={{marginTop: 25}}>
             <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>Pengaturan Hidroponik</Text>
