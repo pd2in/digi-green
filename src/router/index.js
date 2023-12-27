@@ -1,11 +1,11 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import {
-  Home,
-  Login,
-  Splash,
-  MinMaxPPM,
-  PumpStatus,
-  PumpActiveHour,
+    Home,
+    Login,
+    Splash,
+    MinMaxPPM,
+    PumpStatus,
+    PumpActiveHour, FertilizationSchedule,
 } from '../pages';
 import GlobalStyles from '../styles/GlobalStyles';
 
@@ -57,6 +57,14 @@ const Router = () => {
           headerShown: true,
           headerTitle: 'Jam Hidup Pompa',
         }}
+      />
+      <Stack.Screen
+          name="FertilizationSchedule"
+          component={FertilizationSchedule}
+          options={{
+              headerShown: true,
+              headerTitle: 'Pemberian Pupuk Cair',
+          }}
       />
     </Stack.Navigator>
   );

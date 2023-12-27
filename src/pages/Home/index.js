@@ -35,7 +35,19 @@ function Home({navigation, route}) {
     return null;
   }
 
+  const { date, month, year } = config.fertilizationSchedule.startDate;
 
+// Creating a Date object
+  const startDateObject = new Date(`${month} ${date}, ${year}`);
+
+// Formatting the date (e.g., "December 16, 2023")
+  const formattedStartDate = startDateObject.toLocaleDateString("id-ID", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  console.log(formattedStartDate);
 
   return (
       <View onLayout={onLayoutRootView} style={{flex: 1,backgroundColor: 'white', paddingTop: 20,}}>
@@ -120,10 +132,10 @@ function Home({navigation, route}) {
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>
-              <TouchableOpacity style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
+              <TouchableOpacity onPress={()=>{navigation.navigate("FertilizationSchedule", {"schedule" : config.fertilizationSchedule})}} style={{borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: '#DEDEDE', padding: 5, paddingHorizontal: 10}}>
                 <View>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>Pemberian Pupuk Cair</Text>
-                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>Setiap hari Selasa, pukul 6:00</Text>
+                  <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#1cc62b'}}>{formattedStartDate}, pukul 6:00</Text>
                 </View>
                 <ChevronRightIcon />
               </TouchableOpacity>

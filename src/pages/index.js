@@ -4,6 +4,7 @@ import Home from "./Home";
 import MinMaxPPM from "./MinMaxPPM";
 import PumpStatus from "./PumpStatus";
 import PumpActiveHour from "./PumpActiveHour";
+import FertilizationSchedule from "./FertilizationSchedule";
 
 export {
   Login,
@@ -12,4 +13,5 @@ export {
   MinMaxPPM,
   PumpStatus,
   PumpActiveHour,
+  FertilizationSchedule,
 }
